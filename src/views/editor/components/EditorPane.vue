@@ -1,11 +1,10 @@
 <template>
   <div class="paneWrap">
     <div class="paneMain">
-      <div class="paneContent">
+      <div class="paneContent" @drop="handleDrop" @dragover="handleDropOver" @dragenter="handleDropOver">
         <template
           v-for="element in editorStore.pageInfo.elements"
-          :key="element.uuid"
-          >
+          :key="element.uuid">
           <EditorNode :element="element"/>
         </template>
       </div>
@@ -14,32 +13,30 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineComponent, onMounted, ref } from "vue";
-import { OnDrag, OnScale } from "react-moveable/src/types";
+import { defineComponent, onMounted, ref } from "vue";
 import EditorNode from '@/views/editor/components/EditorNode.vue'
-import Moveable from "vue3-moveable";
 import { useEditorStore } from "@/stores/editor";
-import { storeToRefs } from "pinia";
 
 const editorStore = useEditorStore();
+const { addElement } = editorStore;
 
 defineComponent({
   name: "EditorPane"
 })
-const moveableRef = ref<Moveable>()
-const targetRef = ref<HTMLDivElement>();
+
+const handleDrop = (e: Event) => {
+  const data = e.dataTransfer.getData("DragLeftElement");
+  addElement(data)
+  e.preventDefault();
+}
+
+const handleDropOver = (e: Event) => {
+  e.preventDefault();
+}
 
 onMounted(() => {
 
 })
-
-const onDrag = ({ transform }: OnDrag) => {
-  targetRef.value && Reflect.set(targetRef.value?.style, 'transform', transform)
-}
-
-const onScale = ({ drag }: OnScale) => {
-  targetRef.value && Reflect.set(targetRef.value?.style, 'transform', drag.transform)
-}
 
 
 </script>

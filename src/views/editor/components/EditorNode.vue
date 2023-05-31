@@ -1,11 +1,7 @@
 <template>
-  <div
-    :style="commonStyle"
-    class="target"
-    ref="targetRef"
-    @click="onActive"
-  >
-    {{ element.elValue }}
+  <div :style="commonStyle" class="target" ref="targetRef" @click="onActive">
+    <div v-if="isDraggable" class="targetIcon">{{ element.elType === ElType.Text ? 'Text' : 'Image' }}</div>
+    <div>{{ element.elValue }}</div>
   </div>
 
   <Moveable
@@ -13,14 +9,13 @@
     v-show="isDraggable"
     className="moveableBox"
     :target="[targetRef]"
-    :draggable="isDraggable"
+    :draggable="true"
     :resizable="true"
     :origin="false"
     :snappable="true"
-    :snapThreshold="1"
+    :snapThreshold="0.5"
     :verticalGuidelines="[0, 100, 137.5, 200, 300, 375]"
     :horizontalGuidelines="[0, 100, 200, 300, 335.5, 400, 500, 600, 667]"
-    @resizeStart="({setOrigin}) => setOrigin(['%', '%'])"
     @drag="onDrag"
     @resize="onResize"
   />
@@ -29,7 +24,7 @@
 import { computed, PropType, ref } from "vue";
 import Moveable, { OnDrag, OnResize } from "vue3-moveable";
 import { useEditorStore } from "@/stores/editor";
-import { IElement } from "@/types/editor.types";
+import { IElement, ElType } from "@/types/editor.types";
 const editorStore = useEditorStore();
 const props = defineProps({
   element: Object as PropType<IElement>,
@@ -92,6 +87,20 @@ const onResize = ({ width, height, drag }: OnResize) => {
   &:hover {
     border: 1px dashed #8252fa;
     background-color: #8252FA0D;
+  }
+
+  .targetIcon {
+    position: absolute;
+    top: -20px;
+    left: 5px;
+    width: auto;
+    height: 19px;
+    line-height: 19px;
+    font-size: 12px;
+    color: #fff;
+    padding: 0 5px;
+    background-color: #8252fa;
+    border-radius: 3px 3px 0 0;
   }
 }
 

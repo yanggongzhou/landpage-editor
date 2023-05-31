@@ -1,5 +1,4 @@
 import { defineStore, } from 'pinia'
-import { IEditorState } from '@/stores/index.model'
 import { ElType, IElement, IPageInfo } from "@/types/editor.types";
 import { computed, ref } from "vue";
 import utils from "@/utils";
@@ -29,7 +28,7 @@ export const useEditorStore = defineStore('editor', () => {
     const uuid = utils.createUUID();
     const textNode = {
       uuid,
-      elType: ElType.Text,
+      elType: elType,
       elValue: "测试text",
       animations: [],
       autoHeight: false,
@@ -46,20 +45,12 @@ export const useEditorStore = defineStore('editor', () => {
         fontWeight: 500,
       }
     } as IElement
-
-    switch (elType) {
-      case ElType.Text:
-        pageInfo.value.elements.push(textNode);
-        break;
-      case ElType.Image:
-        pageInfo.value.elements.push(textNode);
-        break;
-    }
+    pageInfo.value.elements.push(textNode);
     activeElementId.value = uuid;
   }
 
   const setElement = (element: IElement) => {
-    const index = pageInfo.value.elements.findIndex(ele => ele.uuid === activeElementId.value);
+    const index = pageInfo.value.elements.findIndex(ele => ele.uuid === element.uuid);
     pageInfo.value.elements.splice(index, 1, element)
   }
 
