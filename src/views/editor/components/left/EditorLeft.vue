@@ -5,15 +5,23 @@
         class="componentItem"
         :draggable="true"
         @dragstart="onDragStart($event, ElType.Text)"
-        @click="addText">
+        @click="addElement(ElType.Text)">
         <div class="itemIcon">Text</div>
       </div>
       <div
         class="componentItem"
         :draggable="true"
         @dragstart="onDragStart($event, ElType.Image)"
-        @click="addImage">
+        @click="addElement(ElType.Image)">
         <div class="itemIcon">Image</div>
+      </div>
+
+      <div
+        class="componentItem"
+        :draggable="true"
+        @dragstart="onDragStart($event, ElType.Button)"
+        @click="addElement(ElType.Button)">
+        <div class="itemIcon">Button</div>
       </div>
     </div>
   </div>
@@ -28,14 +36,6 @@ const { addElement } = editorStore;
 
 const onDragStart = (e: DragEvent, elType: ElType) => {
   e.dataTransfer?.setData('DragLeftElement', elType)
-}
-
-const addText = () => {
-  addElement(ElType.Text)
-}
-
-const addImage = () => {
-  addElement(ElType.Image)
 }
 
 defineComponent({
@@ -66,7 +66,7 @@ defineComponent({
 
       .itemIcon {
         transition: all 0.3s ease-in-out;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         background: linear-gradient(90deg, #8252fa 0%, #eca2f1 100%);
         -webkit-background-clip: text;

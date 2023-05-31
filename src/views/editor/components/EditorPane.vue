@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
 import EditorNode from '@/views/editor/components/EditorNode.vue'
 import { useEditorStore } from "@/stores/editor";
 import { ElType } from "@/types/editor.types";

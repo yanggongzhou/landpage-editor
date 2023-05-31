@@ -8,14 +8,17 @@
       <ElMain class="editorMain">
         <EditorPane/>
       </ElMain>
-      <ElAside class="editorRight">Aside Right</ElAside>
+      <ElAside class="editorRight">
+        <EditorRight/>
+      </ElAside>
     </ElContainer>
   </ElContainer>
 </template>
 
 <script lang="ts" setup>
 import EditorPane from "@/views/editor/components/EditorPane.vue"
-import EditorLeft from "@/views/editor/components/EditorLeft.vue"
+import EditorLeft from "@/views/editor/components/left/EditorLeft.vue"
+import EditorRight from "@/views/editor/components/right/index.vue"
 import { onBeforeUnmount, onMounted } from "vue";
 import { useEditorStore } from "@/stores/editor";
 const editorStore = useEditorStore();
