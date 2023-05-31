@@ -5,7 +5,6 @@
         class="componentItem"
         :draggable="true"
         @dragstart="onDragStart($event, ElType.Text)"
-        @drop="onDrop"
         @click="addText">
         <div class="itemIcon">Text</div>
       </div>
@@ -13,7 +12,6 @@
         class="componentItem"
         :draggable="true"
         @dragstart="onDragStart($event, ElType.Image)"
-        @drop="onDrop"
         @click="addImage">
         <div class="itemIcon">Image</div>
       </div>
@@ -22,18 +20,14 @@
 </template>
 <script lang="ts" setup>
 import { useEditorStore } from "@/stores/editor";
-import { ElType, IElement } from "@/types/editor.types";
+import { ElType } from "@/types/editor.types";
 import { defineComponent } from "vue";
 
 const editorStore = useEditorStore();
 const { addElement } = editorStore;
 
-const onDragStart = (e: Event, elType: ElType) => {
-  e.dataTransfer.setData('DragLeftElement', elType)
-}
-
-const onDrop = (e: Event) => {
-  console.log('onDrop', e);
+const onDragStart = (e: DragEvent, elType: ElType) => {
+  e.dataTransfer?.setData('DragLeftElement', elType)
 }
 
 const addText = () => {

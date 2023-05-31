@@ -1,7 +1,12 @@
 <template>
   <div class="paneWrap">
     <div class="paneMain">
-      <div class="paneContent" @drop="handleDrop" @dragover="handleDropOver" @dragenter="handleDropOver">
+      <div
+        class="paneContent"
+        @drop="handleDrop"
+        @dragover="handleDropOver"
+        @dragenter="handleDropOver"
+      >
         <template
           v-for="element in editorStore.pageInfo.elements"
           :key="element.uuid">
@@ -13,9 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted } from "vue";
 import EditorNode from '@/views/editor/components/EditorNode.vue'
 import { useEditorStore } from "@/stores/editor";
+import { ElType } from "@/types/editor.types";
 
 const editorStore = useEditorStore();
 const { addElement } = editorStore;
@@ -24,9 +30,9 @@ defineComponent({
   name: "EditorPane"
 })
 
-const handleDrop = (e: Event) => {
-  const data = e.dataTransfer.getData("DragLeftElement");
-  addElement(data)
+const handleDrop = (e: DragEvent) => {
+  const data = e.dataTransfer?.getData("DragLeftElement");
+  data && addElement(data as ElType)
   e.preventDefault();
 }
 
@@ -46,7 +52,6 @@ onMounted(() => {
   height: 100%;
   width: 100%;
   padding: 35px 0;
-  overflow-y: auto;
   background-image: linear-gradient(45deg, #f5f5f5 25%, transparent 0, transparent 75%, #f5f5f5 0), linear-gradient(45deg, #f5f5f5 25%, transparent 0, transparent 75%, #f5f5f5 0);
   background-position: 0 0, 13px 13px;
   background-size: 26px 26px;

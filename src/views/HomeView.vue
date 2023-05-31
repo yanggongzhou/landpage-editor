@@ -57,7 +57,7 @@ const handleAddPage = () => {
       title: value,
       coverImg: '//shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
     })
-    utils.saveLocalData('page_list', this.list)
+    utils.saveLocalData('page_list', list.value)
     router.push({
       path: '/editor',
       query: { id: newId }

@@ -54,6 +54,13 @@ export const useEditorStore = defineStore('editor', () => {
     pageInfo.value.elements.splice(index, 1, element)
   }
 
+
+  const deleteElement = (uuid?: string) => {
+    const index = pageInfo.value.elements.findIndex(ele => ele.uuid === (uuid ?? activeElementId.value));
+    pageInfo.value.elements.splice(index, 1)
+    activeElementId.value = '';
+  }
+
   return {
     pageInfo,
     activeElementId,
@@ -61,6 +68,7 @@ export const useEditorStore = defineStore('editor', () => {
     pageElements,
     changeActiveId,
     addElement,
+    deleteElement,
     setElement,
   };
 })

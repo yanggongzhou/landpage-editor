@@ -1,6 +1,7 @@
 <template>
   <div :style="commonStyle" class="target" ref="targetRef" @click="onActive">
     <div v-if="isDraggable" class="targetIcon">{{ element.elType === ElType.Text ? 'Text' : 'Image' }}</div>
+    <div v-if="isDraggable" class="targetDelete" @click.stop="onDelete">X</div>
     <div>{{ element.elValue }}</div>
   </div>
 
@@ -27,7 +28,10 @@ import { useEditorStore } from "@/stores/editor";
 import { IElement, ElType } from "@/types/editor.types";
 const editorStore = useEditorStore();
 const props = defineProps({
-  element: Object as PropType<IElement>,
+  element: {
+    type: Object as PropType<IElement>,
+    required: true
+  },
 })
 
 const targetRef = ref<HTMLDivElement>();
@@ -53,10 +57,15 @@ const commonStyle = computed(() => {
 
 const isDraggable = computed(() => editorStore.activeElementId === props.element.uuid)
 
-const { changeActiveId, setElement } = editorStore;
+
+const { changeActiveId, setElement, deleteElement } = editorStore;
 
 const onActive = () => {
   changeActiveId(props.element.uuid);
+}
+
+const onDelete = () => {
+  deleteElement(props.element.uuid)
 }
 
 const onDrag = ({ left, top }: OnDrag) => {
@@ -101,6 +110,25 @@ const onResize = ({ width, height, drag }: OnResize) => {
     padding: 0 5px;
     background-color: #8252fa;
     border-radius: 3px 3px 0 0;
+  }
+
+  .targetDelete {
+    position: absolute;
+    top: 0;
+    right: -23px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #B9BCC7;
+    border-radius: 3px;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #8252fa;
+    }
   }
 }
 

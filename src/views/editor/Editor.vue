@@ -16,7 +16,24 @@
 <script lang="ts" setup>
 import EditorPane from "@/views/editor/components/EditorPane.vue"
 import EditorLeft from "@/views/editor/components/EditorLeft.vue"
+import { onBeforeUnmount, onMounted } from "vue";
+import { useEditorStore } from "@/stores/editor";
+const editorStore = useEditorStore();
+const { deleteElement } = editorStore;
 
+const onkeydownEvent = (event: KeyboardEvent) => {
+  if (event.key === 'Backspace' || event.key === 'Escape') {
+    deleteElement();
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', onkeydownEvent)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onkeydownEvent)
+})
 </script>
 
 <style lang="scss" scoped>

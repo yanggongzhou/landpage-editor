@@ -52,6 +52,6 @@ export interface IElement {
 
 
 export enum ElType {
-  Text = 0,
-  Image = 1,
+  Text = 'text',
+  Image = 'image',
 }
