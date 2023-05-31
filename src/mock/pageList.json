@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "排行榜1",
+    "coverImg": "//img.ikstatic.cn/MTU5NzI4Mzk5NDg2MyMxMDIjcG5n.png"
+  },
+  {
+    "id": 2,
+    "title": "排行榜2",
+    "coverImg": "//img.ikstatic.cn/MTU5ODA2MzI5NDc5NyMyNTUjcG5n.png"
+  },
+  {
+    "id": 3,
+    "title": "九宫格抽奖1",
+    "coverImg": "//img.ikstatic.cn/MTU5ODA2MzU1Mjc4OSM5ODcjanBn.jpg"
+  },
+  {
+    "id": 4,
+    "title": "九宫格抽奖2",
+    "coverImg": "//img.ikstatic.cn/MTU5ODA2MzI5NDczMCM3NTAjcG5n.png"
+  }
+]
