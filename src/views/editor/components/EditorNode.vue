@@ -26,6 +26,7 @@ import { computed, PropType, ref } from "vue";
 import Moveable, { OnDrag, OnResize } from "vue3-moveable";
 import { useEditorStore } from "@/stores/editor";
 import { IElement, ElType } from "@/types/editor.types";
+
 const editorStore = useEditorStore();
 const props = defineProps({
   element: {
@@ -39,24 +40,25 @@ const moveableRef = ref<Moveable>();
 
 const commonStyle = computed(() => {
   const commonStyle = editorStore.pageInfo.elements.find(val => val.uuid === props.element.uuid)?.commonStyle;
-  return commonStyle ? {
-    position: "absolute",
-    width: commonStyle.width + 'px',
-    height: commonStyle.height + 'px',
-    top: commonStyle.top + 'px',
-    left: commonStyle.left + 'px',
-    zIndex: 100,
-    fontSize: 16,
-    fontWeight: 500,
-    backgroundImage: undefined,
-    backgroundRepeat: undefined,
-    transition: 'unset',
-  } : {};
+  if (commonStyle) {
+    return {
+      position: "absolute",
+      width: commonStyle.width + 'px',
+      height: commonStyle.height + 'px',
+      top: commonStyle.top + 'px',
+      left: commonStyle.left + 'px',
+      zIndex: 100,
+      fontSize: 16,
+      fontWeight: 500,
+      backgroundImage: undefined,
+      backgroundRepeat: undefined,
+      transition: 'unset',
+    }
+  }
+  return {};
 })
 
-
 const isDraggable = computed(() => editorStore.activeElementId === props.element.uuid)
-
 
 const { changeActiveId, setElement, deleteElement } = editorStore;
 
@@ -93,6 +95,7 @@ const onResize = ({ width, height, drag }: OnResize) => {
   height: 200px;
   cursor: pointer;
   border: 1px dashed transparent;
+
   &:hover {
     border: 1px dashed #8252fa;
     background-color: #8252FA0D;
@@ -126,6 +129,7 @@ const onResize = ({ width, height, drag }: OnResize) => {
     background-color: #B9BCC7;
     border-radius: 3px;
     transition: all 0.3s;
+
     &:hover {
       background-color: #8252fa;
     }
@@ -141,6 +145,7 @@ const onResize = ({ width, height, drag }: OnResize) => {
     border: 1px solid #8252fa;
     background-color: #fff;
   }
+
   :deep(.moveable-line) {
     background: #8252fa;
   }

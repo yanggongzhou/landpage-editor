@@ -18,17 +18,13 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, onMounted } from "vue";
+import { onMounted } from "vue";
 import EditorNode from '@/views/editor/components/EditorNode.vue'
 import { useEditorStore } from "@/stores/editor";
 import { ElType } from "@/types/editor.types";
 
 const editorStore = useEditorStore();
 const { addElement } = editorStore;
-
-defineComponent({
-  name: "EditorPane"
-})
 
 const handleDrop = (e: DragEvent) => {
   const data = e.dataTransfer?.getData("DragLeftElement");
@@ -39,12 +35,6 @@ const handleDrop = (e: DragEvent) => {
 const handleDropOver = (e: Event) => {
   e.preventDefault();
 }
-
-onMounted(() => {
-
-})
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -99,6 +89,5 @@ onMounted(() => {
   }
 
 }
-
 
 </style>

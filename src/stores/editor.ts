@@ -4,22 +4,22 @@ import { computed, ref } from "vue";
 import utils from "@/utils";
 
 export const useEditorStore = defineStore('editor', () => {
-  /** ----------------------------------state--------------------------------------------*/
+  // ----------------------------------state--------------------------------------------
   const pageInfo = ref<IPageInfo>({
     uuid: '1',
     elements: [],
   });
   // 当前正在编辑的页面uuid
   const activeElementId = ref('');
-  // 历史操作数据用于undo redo
-  const historyCache = ref('');
-  /** ----------------------------------gutter--------------------------------------------*/
-    // 当前编辑器编辑工程项目数据
+  // // 历史操作数据用于undo redo
+  // const historyCache = ref('');
+  // ----------------------------------gutter--------------------------------------------
+  // 当前编辑器编辑工程项目数据
   const currentElement = computed(() => pageInfo.value.elements.find(ele => ele.uuid === activeElementId.value));
 
   const pageElements = computed(() => pageInfo.value.elements)
 
-  /** ----------------------------------actions--------------------------------------------*/
+  // ----------------------------------actions--------------------------------------------
   const changeActiveId = (uuid: string) => {
     activeElementId.value = uuid;
   }
@@ -53,7 +53,6 @@ export const useEditorStore = defineStore('editor', () => {
     const index = pageInfo.value.elements.findIndex(ele => ele.uuid === element.uuid);
     pageInfo.value.elements.splice(index, 1, element)
   }
-
 
   const deleteElement = (uuid?: string) => {
     const index = pageInfo.value.elements.findIndex(ele => ele.uuid === (uuid ?? activeElementId.value));
