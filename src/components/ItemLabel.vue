@@ -1,7 +1,7 @@
 <template>
-<div class="baseTitle">
-  {{ title }}
-</div>
+  <div class="baseTitle">
+    {{ title }}
+  </div>
 </template>
 
 <script lang="ts" setup>
