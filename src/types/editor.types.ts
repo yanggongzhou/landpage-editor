@@ -23,6 +23,11 @@ export interface IElement {
     top: number;
     left: number;
     zIndex: number;
+    borderWidth: number,
+    borderStyle: string;
+    backgroundColor?: string;
+    borderRadius?: number;
+
     paddingTop?: number;
     paddingLeft?: number;
     paddingRight?: number;
@@ -37,12 +42,10 @@ export interface IElement {
     letterSpacing?: number;
     opacity?: number;
     textAlign?: "left" | "center" | "right",
-    borderRadius?: number;
+
     color?: string;
-    backgroundColor?: string;
-    borderWidth?: 0,
+
     borderColor?: string;
-    borderStyle?: string;
     boxShadow?: string;
     backgroundImage?: string;
     backgroundSize?: string;

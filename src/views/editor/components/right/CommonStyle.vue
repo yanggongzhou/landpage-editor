@@ -1,113 +1,102 @@
 <template>
-  <ElCollapse class="csWrap" model-value="1">
+  <ElCollapse class="csWrap" model-value="2">
     <ElCollapseItem title="边框边距" name="1">
       <div class="contentBox">
-        <ItemLabel title="边框" />
-        <el-input-number
-          :value="editorStore.currentElement?.commonStyle.borderWidth"
-          :min="1"
-          :max="10"
-          size="small"
-          controls-position="right"
-          @change="handleChange"
-        />
-      </div>
+        <div>
+          <ItemLabel title="边宽:" />
+          <el-input-number
+            :model-value="editorStore.currentElement?.commonStyle.borderWidth"
+            :min="0"
+            :step="0.5"
+            :max="50"
+            size="small"
+            controls-position="right"
+            @change="borderWidthChange"
+          />
+        </div>
+        <div>
+          <ItemLabel title="颜色:" />
+          <el-color-picker
+            show-alpha
+            size="small"
+            @change="borderColorChange"
+            :model-value="editorStore.currentElement?.commonStyle.borderColor"
+          ></el-color-picker>
+        </div>
+        <div>
+          <ItemLabel title="样式:" />
+          <el-select
+            :model-value="editorStore.currentElement?.commonStyle.borderStyle"
+            @change="borderStyleChange"
+            size="small"
+          >
+            <el-option
+              v-for="item in borderStyleList"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <ItemLabel title="边框圆弧:" />
+          <el-slider
+            :model-value="editorStore.currentElement?.commonStyle.borderRadius"
+            @input="borderRadiusChange"
+            :max="50"
+            size="small"/>
+        </div>
+        <div>
+          <ItemLabel title="Padding:" />
 
-      <div class="attr-item-edit-wrapper">
-
-        <!--        <div class="col-3 attr-item-edit-input">-->
-        <!--          <el-color-picker-->
-        <!--            show-alpha-->
-        <!--            size="mini"-->
-        <!--            @change="throttleAddHistory"-->
-        <!--            v-model="activeElement.commonStyle.borderColor"-->
-        <!--          ></el-color-picker>-->
-        <!--          <div class="attr-item-edit-input-des">颜色</div>-->
-        <!--        </div>-->
-        <!--        <div class="col-2 attr-item-edit-input">-->
-        <!--          <el-select-->
-        <!--            v-model="activeElement.commonStyle.borderStyle"-->
-        <!--            @change="throttleAddHistory"-->
-        <!--            size="mini"-->
-        <!--          >-->
-        <!--            <el-option-->
-        <!--              v-for="item in borderStyleList"-->
-        <!--              :key="item.value"-->
-        <!--              :label="item.label"-->
-        <!--              :value="item.value"-->
-        <!--            />-->
-        <!--          </el-select>-->
-        <!--          <div class="attr-item-edit-input-des">样式</div>-->
-        <!--        </div>-->
-      </div>
-      <!--      <div class="attr-item-edit-wrapper">-->
-      <!--        <p class="attr-item-title">边框圆弧：</p>-->
-      <!--        <div class="col-2 attr-item-edit-input">-->
-      <!--          <el-input-number-->
-      <!--            size="mini"-->
-      <!--            @change="throttleAddHistory"-->
-      <!--            v-model="activeElement.commonStyle.borderRadius"-->
-      <!--            controls-position="right"-->
-      <!--            :min="0"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      &lt;!&ndash;边距&ndash;&gt;-->
-
-      <!--      <div class="attr-item-edit-wrapper">-->
-      <!--        <p class="attr-item-title">上下边距：</p>-->
-      <!--        <div class="col-2 attr-item-edit-input">-->
-      <!--          <el-input-number-->
-      <!--            size="mini"-->
-      <!--            @change="throttleAddHistory"-->
-      <!--            v-model="activeElement.commonStyle.paddingTop"-->
-      <!--            controls-position="right"-->
-      <!--            :min="0"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--        <div class="col-2 attr-item-edit-input">-->
-      <!--          <el-input-number-->
-      <!--            size="mini"-->
-      <!--            @change="throttleAddHistory"-->
-      <!--            v-model="activeElement.commonStyle.paddingBottom"-->
-      <!--            controls-position="right"-->
-      <!--            :min="0"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <div class="attr-item-edit-wrapper">-->
-      <!--        <p class="attr-item-title">左右边距：</p>-->
-      <!--        <div class="col-2 attr-item-edit-input">-->
-      <!--          <el-input-number-->
-      <!--            size="mini"-->
-      <!--            @change="throttleAddHistory"-->
-      <!--            v-model="activeElement.commonStyle.paddingLeft"-->
-      <!--            controls-position="right"-->
-      <!--            :min="0"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--        <div class="col-2 attr-item-edit-input">-->
-      <!--          <el-input-number-->
-      <!--            size="mini"-->
-      <!--            @change="throttleAddHistory"-->
-      <!--            v-model="activeElement.commonStyle.paddingRight"-->
-      <!--            controls-position="right"-->
-      <!--            :min="0"-->
-      <!--          />-->
-      <!--        </div>-->
-      <!--      </div>-->
-    </ElCollapseItem>
-    <ElCollapseItem title="尺寸与位置：" name="1">
-      <div>
-        Consistent with real life: in line with the process and logic of real
-        life, and comply with languages and habits that the users are used to;
-      </div>
-      <div>
-        Consistent within interface: all elements should be consistent, such
-        as: design style, icons and texts, position of elements, etc.
+          <el-input-number
+            :model-value="editorStore.currentElement?.commonStyle.paddingTop"
+            :min="0"
+            :step="1"
+            size="small"
+            controls-position="right"
+            @change="paddingChange"
+          />
+        </div>
       </div>
     </ElCollapseItem>
+    <ElCollapseItem title="背景&透明度" name="2">
+      <div class="contentBox">
+        <div>
+          <ItemLabel title="背景颜色:" />
+          <el-color-picker
+            show-alpha
+            size="small"
+            @change="backgroundColorChange"
+            :model-value="editorStore.currentElement?.commonStyle.backgroundColor"
+          ></el-color-picker>
+        </div>
 
+        <div>
+          <ItemLabel title="背景图片:" />
+          <el-input-number
+            :model-value="editorStore.currentElement?.commonStyle.borderWidth"
+            :min="0"
+            :step="0.5"
+            :max="50"
+            size="small"
+            controls-position="right"
+            @change="borderWidthChange"
+          />
+        </div>
+
+        <div style="display: flex; align-items: center;">
+          <ItemLabel title="透明度:" />
+          <el-slider
+            :model-value="editorStore.currentElement?.commonStyle.opacity"
+            @input="opacityChange"
+            :step="0.01"
+            :max="1"
+            size="small"/>
+        </div>
+
+      </div>
+    </ElCollapseItem>
     <ElCollapseItem title="阴影样式：" name="3">
       <div>
         Simplify the process: keep operating process simple and intuitive;
@@ -132,17 +121,7 @@
         operation.
       </div>
     </ElCollapseItem>
-    <ElCollapseItem title="背景&透明度" name="4">
-      <div>
-        Decision making: giving advices about operations is acceptable, but do
-        not make decisions for the users;
-      </div>
-      <div>
-        Controlled consequences: users should be granted the freedom to
-        operate, including canceling, aborting or terminating current
-        operation.
-      </div>
-    </ElCollapseItem>
+
   </ElCollapse>
 
 </template>
@@ -150,17 +129,67 @@
 <script lang="ts" setup>
 import ItemLabel from "@/components/ItemLabel.vue"
 import { useEditorStore } from "@/stores/editor";
+const borderStyleList = ["solid", "dashed", "dotted", "none", "double", "inset", "outside", "groove", "ridge", ""]
 const editorStore = useEditorStore();
 
-const { currentElement } = editorStore;
+const { setElement } = editorStore;
 
-const handleChange = () => {
+const borderWidthChange = (borderWidth: number) => {
+  if (editorStore.currentElement) {
+    setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, borderWidth } })
+  }
+}
+const borderStyleChange = (borderStyle: string) => {
+  if (editorStore.currentElement) {
+    setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, borderStyle } })
+  }
+}
 
+const borderColorChange = (borderColor: string) => {
+  if (editorStore.currentElement) {
+    setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, borderColor } })
+  }
+}
+
+const borderRadiusChange = (borderRadius: number) => {
+  console.log('borderRadius', borderRadius)
+  if (editorStore.currentElement) {
+    setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, borderRadius } })
+  }
+}
+
+const backgroundColorChange = (backgroundColor: string) => {
+  if (editorStore.currentElement) {
+    setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, backgroundColor } })
+  }
+}
+
+const paddingChange = (padding: number) => {
+  if (editorStore.currentElement) {
+    setElement({
+      ...editorStore.currentElement,
+      commonStyle: {
+        ...editorStore.currentElement.commonStyle,
+        paddingTop: padding,
+        paddingLeft: padding,
+        paddingRight: padding,
+        paddingBottom: padding,
+      } })
+  }
+}
+
+
+const opacityChange = (opacity: number) => {
+  if (editorStore.currentElement) {
+    setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, opacity } })
+  }
 }
 
 const onSubmit = () => {
   console.log('submit!')
 }
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -173,6 +202,6 @@ const onSubmit = () => {
   }
 }
 .contentBox {
-
+  gap: 8px;
 }
 </style>

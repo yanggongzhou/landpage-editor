@@ -1,9 +1,10 @@
 <template>
-  <div :style="commonStyle" class="target" ref="targetRef" @click="onActive">
+  <div class="target" :style="tagetStyle" ref="targetRef" @click="onActive">
     <div v-if="isDraggable" class="targetIcon">{{ element.elType === ElType.Text ? 'Text' : 'Image' }}</div>
     <div v-if="isDraggable" class="targetDelete" @click.stop="onDelete">X</div>
-    <div>{{ element.elValue }}</div>
+    <div :style="commonStyle">{{ element.elValue }}</div>
   </div>
+
 
   <Moveable
     ref="moveableRef"
@@ -38,7 +39,7 @@ const props = defineProps({
 const targetRef = ref<HTMLDivElement>();
 const moveableRef = ref<Moveable>();
 
-const commonStyle = computed(() => {
+const tagetStyle = computed(() => {
   const commonStyle = editorStore.pageInfo.elements.find(val => val.uuid === props.element.uuid)?.commonStyle;
   if (commonStyle) {
     return {
@@ -48,10 +49,35 @@ const commonStyle = computed(() => {
       top: commonStyle.top + 'px',
       left: commonStyle.left + 'px',
       zIndex: 100,
-      fontSize: 16,
-      fontWeight: 500,
+      transition: 'unset',
+    }
+  }
+  return {};
+})
+
+const commonStyle = computed(() => {
+  const commonStyle = editorStore.pageInfo.elements.find(val => val.uuid === props.element.uuid)?.commonStyle;
+  if (commonStyle) {
+    return {
+      width: '100%',
+      height: '100%',
+
+      borderWidth: commonStyle.borderWidth + 'px',
+      borderColor: commonStyle.borderColor,
+      borderStyle: commonStyle.borderStyle,
+      borderRadius: commonStyle.borderRadius + '%',
+
+      paddingTop: commonStyle.paddingTop + 'px',
+      paddingLeft: commonStyle.paddingLeft + 'px',
+      paddingRight: commonStyle.paddingRight + 'px',
+      paddingBottom: commonStyle.paddingBottom + 'px',
+      opacity: commonStyle.opacity,
+      backgroundColor: commonStyle?.backgroundColor,
+
       backgroundImage: undefined,
       backgroundRepeat: undefined,
+      fontSize: 16,
+      fontWeight: 500,
       transition: 'unset',
     }
   }
@@ -94,11 +120,11 @@ const onResize = ({ width, height, drag }: OnResize) => {
   width: 200px;
   height: 200px;
   cursor: pointer;
-  border: 1px dashed transparent;
+  transition: all 0.2s;
 
   &:hover {
-    border: 1px dashed #8252fa;
     background-color: #8252FA0D;
+    box-shadow: 0 0 3px 4px rgba(130, 82, 250, 0.3);
   }
 
   .targetIcon {

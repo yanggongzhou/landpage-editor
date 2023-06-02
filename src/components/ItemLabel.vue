@@ -14,8 +14,10 @@ defineProps({
 </script>
 <style lang="scss" scoped>
 .baseTitle {
-  padding: 10px 15px;
-  font-size: 16px;
+  min-width: 60px;
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 12px;
   font-weight: bold;
 }
 </style>

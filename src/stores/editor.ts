@@ -43,6 +43,14 @@ export const useEditorStore = defineStore('editor', () => {
         zIndex: 100,
         fontSize: 16,
         fontWeight: 500,
+        borderStyle: "solid",
+        borderWidth: 0,
+        borderRadius: 0,
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingBottom: 0,
+        opacity: 1,
       }
     } as IElement
     pageInfo.value.elements.push(textNode);
@@ -51,7 +59,8 @@ export const useEditorStore = defineStore('editor', () => {
 
   const setElement = (element: IElement) => {
     const index = pageInfo.value.elements.findIndex(ele => ele.uuid === element.uuid);
-    pageInfo.value.elements.splice(index, 1, element)
+    const _element = JSON.parse(JSON.stringify(element));
+    pageInfo.value.elements.splice(index, 1, _element)
   }
 
   const deleteElement = (uuid?: string) => {

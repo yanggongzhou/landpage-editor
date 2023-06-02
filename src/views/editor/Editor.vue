@@ -26,7 +26,7 @@ const { deleteElement } = editorStore;
 
 const onkeydownEvent = (event: KeyboardEvent) => {
   if (event.key === 'Backspace' || event.key === 'Escape') {
-    deleteElement();
+    // deleteElement();
   }
 }
 
