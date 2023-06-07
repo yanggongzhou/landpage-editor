@@ -22,7 +22,7 @@ const editorStore = useEditorStore();
 const { setElement } = editorStore;
 
 const elValue = computed(() => {
-  console.log('editorStore.currentElement?.elValue===>', editorStore.currentElement?.elValue)
+  console.log('editorStore.currentElement?.elValue===>', editorStore.currentElement)
   return editorStore.currentElement?.elValue || ''
 });
 
@@ -42,9 +42,5 @@ const onContent = (value: string) => {
   if (editorStore.activeElementId) {
     setElement({ ...editorStore.currentElement, elValue: value } as IElement);
   }
-}
-
-const onSubmit = () => {
-  console.log('submit!')
 }
 </script>

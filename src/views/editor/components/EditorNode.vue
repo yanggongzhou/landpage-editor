@@ -57,10 +57,13 @@ const tagetStyle = computed(() => {
 
 const commonStyle = computed(() => {
   const commonStyle = editorStore.pageInfo.elements.find(val => val.uuid === props.element.uuid)?.commonStyle;
+
   if (commonStyle) {
-    return {
-      width: '100%',
-      height: '100%',
+    const boxShadowObj = editorStore.currentElement.boxShadow;
+    const boxShadow = `${boxShadowObj.type} ${boxShadowObj.x}px ${boxShadowObj.y}px ${boxShadowObj.blur}px ${boxShadowObj.spread}px ${boxShadowObj.color}`.trim();
+      return {
+      width: '-webkit-fill-available',
+      height: '-webkit-fill-available',
 
       borderWidth: commonStyle.borderWidth + 'px',
       borderColor: commonStyle.borderColor,
@@ -71,8 +74,16 @@ const commonStyle = computed(() => {
       paddingLeft: commonStyle.paddingLeft + 'px',
       paddingRight: commonStyle.paddingRight + 'px',
       paddingBottom: commonStyle.paddingBottom + 'px',
+
+      marginTop: commonStyle.marginTop + 'px',
+      marginLeft: commonStyle.marginLeft + 'px',
+      marginRight: commonStyle.marginRight + 'px',
+      marginBottom: commonStyle.marginBottom + 'px',
+
       opacity: commonStyle.opacity,
       backgroundColor: commonStyle?.backgroundColor,
+
+      boxShadow,
 
       backgroundImage: undefined,
       backgroundRepeat: undefined,

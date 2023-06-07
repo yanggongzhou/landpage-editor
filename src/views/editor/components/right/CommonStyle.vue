@@ -1,5 +1,5 @@
 <template>
-  <ElCollapse class="csWrap" model-value="2">
+  <ElCollapse class="csWrap" model-value="3">
     <ElCollapseItem title="边框边距" name="1">
       <div class="contentBox">
         <div>
@@ -58,6 +58,18 @@
             @change="paddingChange"
           />
         </div>
+        <div>
+          <ItemLabel title="Margin:" />
+
+          <el-input-number
+            :model-value="editorStore.currentElement?.commonStyle.marginTop"
+            :min="0"
+            :step="1"
+            size="small"
+            controls-position="right"
+            @change="marginChange"
+          />
+        </div>
       </div>
     </ElCollapseItem>
     <ElCollapseItem title="背景&透明度" name="2">
@@ -98,17 +110,7 @@
       </div>
     </ElCollapseItem>
     <ElCollapseItem title="阴影样式：" name="3">
-      <div>
-        Simplify the process: keep operating process simple and intuitive;
-      </div>
-      <div>
-        Definite and clear: enunciate your intentions clearly so that the
-        users can quickly understand and make decisions;
-      </div>
-      <div>
-        Easy to identify: the interface should be straightforward, which helps
-        the users to identify and frees them from memorizing and recalling.
-      </div>
+      <BoxShadow/>
     </ElCollapseItem>
     <ElCollapseItem title="字体" name="4">
       <div>
@@ -128,8 +130,9 @@
 
 <script lang="ts" setup>
 import ItemLabel from "@/components/ItemLabel.vue"
+import BoxShadow from "@/views/editor/components/right/BoxShadow.vue"
 import { useEditorStore } from "@/stores/editor";
-const borderStyleList = ["solid", "dashed", "dotted", "none", "double", "inset", "outside", "groove", "ridge", ""]
+const borderStyleList = ["solid", "dashed", "dotted", "none", "double", "inset", "outset", "groove", "ridge"]
 const editorStore = useEditorStore();
 
 const { setElement } = editorStore;
@@ -178,17 +181,26 @@ const paddingChange = (padding: number) => {
   }
 }
 
+const marginChange = (margin: number) => {
+  if (editorStore.currentElement) {
+    setElement({
+      ...editorStore.currentElement,
+      commonStyle: {
+        ...editorStore.currentElement.commonStyle,
+        marginTop: margin,
+        marginLeft: margin,
+        marginRight: margin,
+        marginBottom: margin,
+      } })
+  }
+}
+
 
 const opacityChange = (opacity: number) => {
   if (editorStore.currentElement) {
     setElement({ ...editorStore.currentElement, commonStyle: { ...editorStore.currentElement.commonStyle, opacity } })
   }
 }
-
-const onSubmit = () => {
-  console.log('submit!')
-}
-
 
 </script>
 

@@ -16,6 +16,14 @@ export interface IElement {
   autoHeight: boolean;
   autoWidth: boolean;
   visible: boolean;
+  boxShadow?: {
+    type?: string;
+    x: number;
+    y: number;
+    blur: number;
+    spread: number;
+    color: string;
+  }
   commonStyle: {
     position: "absolute" | "fixed";
     width: number;
@@ -36,6 +44,7 @@ export interface IElement {
     marginLeft?: number;
     marginRight?: number;
     marginBottom?: number;
+
     fontSize?: number;
     fontWeight?: number;
     lineHeight?: number;
@@ -46,7 +55,7 @@ export interface IElement {
     color?: string;
 
     borderColor?: string;
-    boxShadow?: string;
+
     backgroundImage?: string;
     backgroundSize?: string;
     transition?: string;

@@ -50,7 +50,19 @@ export const useEditorStore = defineStore('editor', () => {
         paddingLeft: 0,
         paddingRight: 0,
         paddingBottom: 0,
+        marginTop: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        marginBottom: 0,
         opacity: 1,
+      },
+      boxShadow: {
+        type: '',
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 'rgba(255, 0, 0, 1)'
       }
     } as IElement
     pageInfo.value.elements.push(textNode);
