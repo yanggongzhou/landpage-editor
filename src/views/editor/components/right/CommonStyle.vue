@@ -1,5 +1,5 @@
 <template>
-  <ElCollapse class="csWrap" model-value="3">
+  <ElCollapse class="csWrap" model-value="4">
     <ElCollapseItem title="边框边距" name="1">
       <div class="contentBox">
         <div>
@@ -113,15 +113,7 @@
       <BoxShadow/>
     </ElCollapseItem>
     <ElCollapseItem title="字体" name="4">
-      <div>
-        Decision making: giving advices about operations is acceptable, but do
-        not make decisions for the users;
-      </div>
-      <div>
-        Controlled consequences: users should be granted the freedom to
-        operate, including canceling, aborting or terminating current
-        operation.
-      </div>
+      <FontDetail/>
     </ElCollapseItem>
 
   </ElCollapse>
@@ -131,6 +123,7 @@
 <script lang="ts" setup>
 import ItemLabel from "@/components/ItemLabel.vue"
 import BoxShadow from "@/views/editor/components/right/BoxShadow.vue"
+import FontDetail from "@/views/editor/components/right/FontDetail.vue"
 import { useEditorStore } from "@/stores/editor";
 const borderStyleList = ["solid", "dashed", "dotted", "none", "double", "inset", "outset", "groove", "ridge"]
 const editorStore = useEditorStore();

@@ -56,40 +56,44 @@ const tagetStyle = computed(() => {
 })
 
 const commonStyle = computed(() => {
-  const commonStyle = editorStore.pageInfo.elements.find(val => val.uuid === props.element.uuid)?.commonStyle;
-
+  const currentElement = editorStore.pageInfo.elements.find(val => val.uuid === props.element.uuid);
+  const commonStyle = currentElement?.commonStyle;
   if (commonStyle) {
-    const boxShadowObj = editorStore.currentElement.boxShadow;
+    const boxShadowObj = currentElement.boxShadow;
     const boxShadow = `${boxShadowObj.type} ${boxShadowObj.x}px ${boxShadowObj.y}px ${boxShadowObj.blur}px ${boxShadowObj.spread}px ${boxShadowObj.color}`.trim();
       return {
-      width: '-webkit-fill-available',
-      height: '-webkit-fill-available',
+        width: '-webkit-fill-available',
+        height: '-webkit-fill-available',
 
-      borderWidth: commonStyle.borderWidth + 'px',
-      borderColor: commonStyle.borderColor,
-      borderStyle: commonStyle.borderStyle,
-      borderRadius: commonStyle.borderRadius + '%',
+        borderWidth: commonStyle.borderWidth + 'px',
+        borderColor: commonStyle.borderColor,
+        borderStyle: commonStyle.borderStyle,
+        borderRadius: commonStyle.borderRadius + '%',
 
-      paddingTop: commonStyle.paddingTop + 'px',
-      paddingLeft: commonStyle.paddingLeft + 'px',
-      paddingRight: commonStyle.paddingRight + 'px',
-      paddingBottom: commonStyle.paddingBottom + 'px',
+        paddingTop: commonStyle.paddingTop + 'px',
+        paddingLeft: commonStyle.paddingLeft + 'px',
+        paddingRight: commonStyle.paddingRight + 'px',
+        paddingBottom: commonStyle.paddingBottom + 'px',
 
-      marginTop: commonStyle.marginTop + 'px',
-      marginLeft: commonStyle.marginLeft + 'px',
-      marginRight: commonStyle.marginRight + 'px',
-      marginBottom: commonStyle.marginBottom + 'px',
+        marginTop: commonStyle.marginTop + 'px',
+        marginLeft: commonStyle.marginLeft + 'px',
+        marginRight: commonStyle.marginRight + 'px',
+        marginBottom: commonStyle.marginBottom + 'px',
 
-      opacity: commonStyle.opacity,
-      backgroundColor: commonStyle?.backgroundColor,
+        opacity: commonStyle.opacity,
+        backgroundColor: commonStyle?.backgroundColor,
+        boxShadow,
 
-      boxShadow,
+        backgroundImage: undefined,
+        backgroundRepeat: undefined,
+        fontSize: commonStyle.fontSize + 'px',
+        fontWeight: commonStyle.fontWeight,
+        letterSpacing: commonStyle.letterSpacing + 'px',
+        lineHeight: commonStyle.lineHeight,
+        color: commonStyle.color,
+        textAlign: commonStyle.textAlign,
 
-      backgroundImage: undefined,
-      backgroundRepeat: undefined,
-      fontSize: 16,
-      fontWeight: 500,
-      transition: 'unset',
+        transition: 'unset',
     }
   }
   return {};

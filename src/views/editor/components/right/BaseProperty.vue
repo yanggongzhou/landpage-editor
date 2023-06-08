@@ -22,7 +22,6 @@ const editorStore = useEditorStore();
 const { setElement } = editorStore;
 
 const elValue = computed(() => {
-  console.log('editorStore.currentElement?.elValue===>', editorStore.currentElement)
   return editorStore.currentElement?.elValue || ''
 });
 

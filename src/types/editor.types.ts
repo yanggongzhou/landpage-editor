@@ -45,14 +45,15 @@ export interface IElement {
     marginRight?: number;
     marginBottom?: number;
 
-    fontSize?: number;
-    fontWeight?: number;
-    lineHeight?: number;
-    letterSpacing?: number;
+    fontSize: number;
+    fontWeight: number;
+    lineHeight: number;
+    letterSpacing: number;
+    color: string;
     opacity?: number;
-    textAlign?: "left" | "center" | "right",
+    textAlign?: string;
 
-    color?: string;
+
 
     borderColor?: string;
 
